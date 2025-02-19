@@ -132,7 +132,7 @@ fun LemonadeTextApp(
         horizontalAlignment = Alignment.CenterHorizontally,
 
         ){
-        Button(onClick = {},
+        Button(onClick = onImageClick,
             colors = ButtonDefaults.buttonColors(containerColor = Color.Yellow),
             shape = RoundedCornerShape(30.dp),
             modifier = Modifier.size(180.dp)
@@ -141,7 +141,7 @@ fun LemonadeTextApp(
             Image(
                 painter = painterResource(imageResourceId),
                 contentDescription = stringResource(contentResourceId),
-                modifier = Modifier.clickable (onClick = onImageClick)
+
             )
 
         }
