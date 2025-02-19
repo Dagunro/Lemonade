@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -55,92 +56,104 @@ class MainActivity : ComponentActivity() {
 fun LemonadeApp(modifier: Modifier = Modifier
     .fillMaxSize()
     .wrapContentSize(Alignment.Center)
-){
+) {
 
     var result by remember { mutableStateOf(1) }
+    var squeezeCount by remember { mutableStateOf(0) }
 
-    var changePage = when(result){
-        1 -> Button(onClick = {},
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Yellow),
-            shape = RoundedCornerShape(30.dp),
-            modifier = Modifier.size(180.dp)
-        ) {
+    when (result) {
+        1 -> {
+            LemonadeTextApp(
+                textResourceId = R.string.lemon_tree,
+                imageResourceId = R.drawable.lemon_tree,
+                contentResourceId = R.string.lemon_tree_description,
+                onImageClick = {
+                    result = 2
+                    squeezeCount = (2..4).random()
 
-            Image(
-                painter = painterResource(R.drawable.lemon_tree),
-                contentDescription = "Lemon Tree",
+                }
             )
-
         }
 
-        2 -> Button(onClick = {},
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Yellow),
-            shape = RoundedCornerShape(30.dp),
-            modifier = Modifier.size(180.dp)
-        ) {
 
-            Image(
-                painter = painterResource(R.drawable.lemon_squeeze),
-                contentDescription = "Lemon Tree",
+        2 -> {
+            LemonadeTextApp(
+                textResourceId = R.string.lemon,
+                imageResourceId = R.drawable.lemon_squeeze,
+                contentResourceId = R.string.lemon_description,
+                onImageClick = {
+                    squeezeCount--
+                    if (squeezeCount == 0) {
+                        result = 3
+                    }
+                }
             )
-
         }
 
-        3 -> Button(onClick = {},
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Yellow),
-            shape = RoundedCornerShape(30.dp),
-            modifier = Modifier.size(180.dp)
-        ) {
+        3 -> {
+            LemonadeTextApp(
+                textResourceId = R.string.lemon_glass,
+                imageResourceId = R.drawable.lemon_drink,
+                contentResourceId = R.string.lemon_glass_description,
+                onImageClick = {
+                    result = 4
 
-            Image(
-                painter = painterResource(R.drawable.lemon_drink),
-                contentDescription = "Lemon Tree",
+                }
             )
-
         }
 
-        else -> Button(onClick = {},
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Yellow),
-            shape = RoundedCornerShape(30.dp),
-            modifier = Modifier.size(180.dp)
-        ) {
+        4 -> {
+            LemonadeTextApp(
+                textResourceId = R.string.empty_glass,
+                imageResourceId = R.drawable.lemon_restart,
+                contentResourceId = R.string.empty_glass_description,
+                onImageClick = {
+                    result = 1
 
-            Image(
-                painter = painterResource(R.drawable.lemon_restart),
-                contentDescription = "Lemon Tree",
+                }
             )
-
         }
+
+
     }
 
+}
 
+@Composable
+fun LemonadeTextApp(
+    textResourceId: Int,
+    imageResourceId: Int,
+    contentResourceId: Int,
+    onImageClick: () -> Unit
+) {
     Column (
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
 
-    ){
-        Button(onClick = { result = 1..4},
+        ){
+        Button(onClick = {},
             colors = ButtonDefaults.buttonColors(containerColor = Color.Yellow),
             shape = RoundedCornerShape(30.dp),
             modifier = Modifier.size(180.dp)
         ) {
 
             Image(
-                painter = painterResource(R.drawable.lemon_tree),
-                contentDescription = "Lemon Tree",
+                painter = painterResource(imageResourceId),
+                contentDescription = stringResource(contentResourceId),
+                modifier = Modifier.clickable (onClick = onImageClick)
             )
 
         }
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = stringResource(R.string.lemon_tree) //The text Below
+            text = stringResource(textResourceId) //The text Below
 
         )
 
     }
 
-    }
+}
 
 @Preview(showBackground = true, showSystemUi = true)
 

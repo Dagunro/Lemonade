@@ -4,4 +4,9 @@
     <string name="lemon">Keep tapping the lemon to squeeze it</string>
     <string name="lemon_glass">Tap the lemonade to drink it</string>
     <string name="empty_glass">Tap the empty glass to start again</string>
+    <string name="lemon_tree_description">Lemon Tree</string>
+    <string name="lemon_description">Lemon</string>
+    <string name="lemon_glass_description">Lemon Glass</string>
+    <string name="empty_glass_description">Empty_Glass</string>
+
 </resources>
